@@ -28,13 +28,13 @@ pub fn miller_rabin(d: &BigUint, n: &BigUint) -> bool {
 }
 
 pub fn is_prime(n: &BigUint, k: usize) -> bool {
-    let zero = BigUint::from(0 as usize) ;
+    let zero = BigUint::from(0 as usize);
     let one = BigUint::from(1 as usize);
     let two = BigUint::from(2 as usize);
     if n <= &one || n == &BigUint::from(4 as usize) {
         return false;
     }
-    if n <= &BigUint::from(3 as usize)  {
+    if n <= &BigUint::from(3 as usize) {
         return true;
     }
 
@@ -49,4 +49,9 @@ pub fn is_prime(n: &BigUint, k: usize) -> bool {
         }
     }
     true
+}
+
+pub fn generate_random_biguint(bits: usize) -> BigUint {
+    let mut rng = thread_rng();
+    rng.gen_biguint(bits)
 }
