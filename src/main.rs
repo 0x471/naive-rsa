@@ -1,9 +1,7 @@
 use num_bigint::BigUint;
-use prime::Prime;
-use utils::is_prime;
+use naive_rsa::prime::Prime;
+use naive_rsa::utils::is_prime;
 
-mod prime;
-mod utils;
 
 fn main() {
     let prime_instance = Prime::new(256, 4);
