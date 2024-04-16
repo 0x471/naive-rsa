@@ -3,7 +3,6 @@ use rand::thread_rng;
 
 pub fn miller_rabin(d: &BigUint, n: &BigUint) -> bool {
     let mut rng = thread_rng();
-    let one = BigUint::from(1 as usize);
     let two = BigUint::from(2 as usize);
 
     let a = rng.gen_biguint_range(&two, &(n - &two));
