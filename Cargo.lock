@@ -49,6 +49,7 @@ name = "naive_rsa"
 version = "0.1.0"
 dependencies = [
  "num-bigint",
+ "num-traits",
  "rand 0.6.5",
 ]
 

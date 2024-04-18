@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 rand = "0.6"
 num-bigint = { version = "0.2.2", features = ["rand"] }
+num-traits = "0.2.18"
