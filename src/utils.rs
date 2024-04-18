@@ -1,4 +1,4 @@
-use num_bigint::{BigUint, RandBigInt};
+use num_bigint::{BigInt, BigUint, RandBigInt, Sign};
 use rand::thread_rng;
 
 pub fn miller_rabin(d: &BigUint, n: &BigUint) -> bool {
@@ -53,4 +53,42 @@ pub fn is_prime(n: &BigUint, k: usize) -> bool {
 pub fn generate_random_biguint(bits: usize) -> BigUint {
     let mut rng = thread_rng();
     rng.gen_biguint(bits)
+}
+
+pub fn gcd(a: &BigUint, b: &BigUint) -> BigUint {
+    let zero = BigUint::from(0 as usize);
+    let mut temp;
+    let mut a = a.clone();
+    let mut b = b.clone();
+    loop {
+        temp = a.clone() % b.clone();
+        if temp == zero {
+            return b.clone();
+        }
+        a = b.clone();
+        b = temp;
+    }
+}
+
+pub fn mod_inverse(a: &BigUint, modulus: &BigUint) -> Option<BigUint> {
+    let zero = BigInt::from(0 as usize);
+    let one = BigInt::from(1 as usize);
+
+    let mut mn = (
+        BigInt::from_biguint(Sign::Plus, modulus.clone()),
+        BigInt::from_biguint(Sign::Plus, a.clone()),
+    );
+    let mut xy = (zero.clone(), one.clone());
+
+    while mn.1 != zero {
+        xy = (xy.1.clone(), xy.0.clone() - (&mn.0 / &mn.1) * xy.1.clone());
+        mn = (mn.1.clone(), mn.0 % mn.1.clone());
+    }
+
+    if mn.0 > one {
+        return None;
+    }
+
+    let resp = (xy.0 + BigInt::from(modulus.clone())) % BigInt::from(modulus.clone());
+    Some(resp.to_biguint().unwrap())
 }
